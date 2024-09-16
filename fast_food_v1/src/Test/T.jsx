@@ -11,7 +11,7 @@ data_.getdata(sizePricePairs)
 
   const fetchSize = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/Size');
+      const response = await axios.get('/api/Size');
       setSize(response.data);
       console.log(response.data);
     } catch (error) {

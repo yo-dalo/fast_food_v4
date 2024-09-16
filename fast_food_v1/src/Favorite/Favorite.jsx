@@ -11,7 +11,7 @@ function Favorite() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/favorites/')
+    axios.get('/api/favorites/')
       .then(response => {
        setData(response.data);
        

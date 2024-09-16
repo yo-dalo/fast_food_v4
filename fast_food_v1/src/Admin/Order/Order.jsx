@@ -10,7 +10,7 @@ function Order() {
   const [open_box, setOpen_box] = useState(false);
 
 const getOrder= ()=>{
-  axios.get('http://localhost:3000/api/Order')
+  axios.get('/api/Order')
       .then(response => {
         setData(response.data);
         setLoading(false);
@@ -25,7 +25,7 @@ const getOrder= ()=>{
 const deleteOrder = async (id)=>{
   
   try{
-    const res = await axios.delete(`http://localhost:3000/api/Order/${id}`)
+    const res = await axios.delete(`/api/Order/${id}`)
     getOrder();
   }catch(err){
   console.log(err)

@@ -18,7 +18,7 @@ function My_card() {
   const [total_rs ,setTotal_rs] = useState(10);
   const get_Card = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/f/v3/card/");
+      const res = await axios.get("/api/f/v3/card/");
       set_My_card(res.data);
       const total_rs = res.data.reduce((acc, item) => {
       const itemTotal = item.Rs * item.Qty;
@@ -34,7 +34,7 @@ function My_card() {
   };
   const get_product = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/f/v1/card/");
+      const res = await axios.get("/api/f/v1/card/");
       setProduct(res.data);
       
     } catch (err) {
@@ -44,7 +44,7 @@ function My_card() {
 
   const delete_Card = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/card/${id}`);
+      await axios.delete(`/api/card/${id}`);
       get_Card();  // Re-fetch items after deletion
     } catch (err) {
       console.error(err);
@@ -52,7 +52,7 @@ function My_card() {
   };
   const qty_update = async (id,qty) => {
     try {
-      await axios.patch(`http://localhost:3000/api/card/update/qty/`,{id,qty});
+      await axios.patch(`/api/card/update/qty/`,{id,qty});
       get_Card();  // Re-fetch items after deletion
     } catch (err) {
       console.error(err);
@@ -107,7 +107,7 @@ function My_card() {
                 <FaPlus onClick={() => delete_Card(item.Id)} className="rotate-45 absolute right-0.5 top-0.5" />
                 <Link to={`../Detail/${item.product_id}`}>
                 <span className="items-center flex r3  gap-3">
-                  <img className="w-10 h-9 object-fill" src={`http://localhost:3000/uploads/${item.Img}` || './Img/default.png'} alt={item.Img} />
+                  <img className="w-10 h-9 object-fill" src={`/uploads/${item.Img}` || './Img/default.png'} alt={item.Img} />
                   <div className="flex flex-col justify-between items-stretch">
                     <h6 className="text-[0.6rem]">{item.Product_name}</h6>
                     <h6 className="text-[0.6rem] flex items-center main_color"><spam className="text-[0.6rem] text-blue-700 mx-1.5">{item.Size_name}</spam> <FaRupeeSign />{item.Rs*item.Qty}</h6>

@@ -10,7 +10,7 @@ function Size() {
 
 
 const fatch_user = ()=>{
-  axios.get('http://localhost:3000/api/size')
+  axios.get('/api/size')
       .then(response => {
         setData(response.data);
         setLoading(false);
@@ -25,7 +25,7 @@ const fatch_user = ()=>{
 
 const deleteCategory = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/size/${id}`);
+      await axios.delete(`/api/size/${id}`);
       fatch_user(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting category:', error);

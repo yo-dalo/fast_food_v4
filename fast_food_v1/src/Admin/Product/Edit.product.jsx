@@ -28,7 +28,7 @@ function EditProduct() {
   const navigate = useNavigate();
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/categories');
+        const response = await axios.get('/api/categories');
         setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
@@ -37,7 +37,7 @@ function EditProduct() {
 
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/product/2`);
+        const response = await axios.get(`/api/product/2`);
         const product = response.data;
         setProductName(product.Name);
         setSelectedCategory(product.category);
@@ -78,7 +78,7 @@ function EditProduct() {
     }
 
     try {
-      const response = await axios.put(`http://localhost:3000/api/products/${id}`, formData, {
+      const response = await axios.put(`/api/products/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

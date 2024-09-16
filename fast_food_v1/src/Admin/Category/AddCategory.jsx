@@ -32,7 +32,7 @@ function AddCategory() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:3000/categories', formData, {
+      const response = await axios.post('/categories', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

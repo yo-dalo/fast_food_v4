@@ -9,7 +9,7 @@ function Category() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/categories');
+      const response = await axios.get('/api/categories');
       setCategories(response.data);
       console.log(response.data)
       
@@ -21,7 +21,7 @@ function Category() {
   const deleteCategory = async (id) => {
     
     try {
-      await axios.delete(`http://localhost:3000/api/categories/${id}`);
+      await axios.delete(`/api/categories/${id}`);
       fetchCategories(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting category:', error);
@@ -30,7 +30,7 @@ function Category() {
 
   const changeStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:3000/api/categories/${id}`, { status });
+      await axios.patch(`/api/categories/${id}`, { status });
       fetchCategories(); // Refresh the list after status change
     } catch (error) {
       console.error('Error changing status:', error);
@@ -112,7 +112,7 @@ function Category() {
                   <button type="button" className={`inline-flex items-center gap-x-2 text-sm font-semibold ${category.Status?"text-green-600": "text-blue-600"} `} onClick={()=>changeStatus(category.Id,category.Status?0:1)}>{category.Status?"Active":"Inactive"}</button>
                 </td>
                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                   <img className="sm:w-[5vw]" src={`http://localhost:3000/uploads/${category.Img}`}/>
+                   <img className="sm:w-[5vw]" src={`/uploads/${category.Img}`}/>
                  </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
   <button className="border-0 outline-0 text-red-600 px-1" onClick={() => deleteCategory(category.Id)}>Delete</button>

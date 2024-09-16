@@ -21,7 +21,7 @@ function AddProduct() {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/categories');
+      const response = await axios.get('/api/categories');
       setCategories(response.data);
       console.log(response.data);
     } catch (error) {
@@ -83,7 +83,7 @@ function AddProduct() {
    
 
     try {
-      const response = await axios.post('http://localhost:3000/api/product', formData, {
+      const response = await axios.post('/api/product', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

@@ -14,7 +14,7 @@ function My_card() {
 
   const get_Card = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/f/v1/card/");
+      const res = await axios.get("/api/f/v1/card/");
       set_My_card(res.data);
       
     } catch (err) {
@@ -23,7 +23,7 @@ function My_card() {
   };
   const delete_Card = async (id) => {
     try {
-      await axios.delete("http://localhost:3000/api/card/" + id);
+      await axios.delete("/api/card/" + id);
       get_Card();  // Re-fetch items after deletion
     } catch (err) {
       console.error(err);

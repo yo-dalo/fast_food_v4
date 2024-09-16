@@ -8,7 +8,7 @@ function AdminProduct() {
   const [searchTerm, setSearchTerm] = useState("");
 
   const fetchProducts = () => {
-    axios.get("http://localhost:3000/api/Product")
+    axios.get("/api/Product")
       .then(response => {
         setProducts(response.data);
       })
@@ -19,7 +19,7 @@ function AdminProduct() {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/product/${id}`);
+      await axios.delete(`/api/product/${id}`);
       fetchProducts(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting product:', error);
@@ -28,7 +28,7 @@ function AdminProduct() {
 
   const changeStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:3000/api/Product/${id}`, { status });
+      await axios.patch(`/api/Product/${id}`, { status });
       fetchProducts(); // Refresh the list after status change
     } catch (error) {
       console.error('Error changing status:', error);

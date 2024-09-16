@@ -34,7 +34,7 @@ const [user_address ,setUser_address] = useState("");
   
   const get_place = async (my_card_arr) => {
   try {
-    const res = await axios.post("http://localhost:3000/api/f/v6/Card/", { my_card_arr });
+    const res = await axios.post("/api/f/v6/Card/", { my_card_arr });
     
     // Setting data in state
     setP_data(res.data);
@@ -53,7 +53,7 @@ const [user_address ,setUser_address] = useState("");
 };
   const add_Order = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/order",{
+      const res = await axios.post("/api/v1/order",{
         Address:user_address,
         Payment_mathed:"case on Delivery",
         Payment_id:"1223",
@@ -113,7 +113,7 @@ const [user_address ,setUser_address] = useState("");
             {p_data.map((item,i)=>(
            
             <div key={i} className="w-full  rounded-md bg-gray-100 h-16 flex justify-between items-center border border-gray-400 px-3">
-              <span className=" items-center flex r3  gap-3"><img className="w-10 h-9 object-fill" src={`http://localhost:3000/uploads/${item.Img}`} />
+              <span className=" items-center flex r3  gap-3"><img className="w-10 h-9 object-fill" src={`/uploads/${item.Img}`} />
               <div className="flex flex-col justify-between items-stretch">
                 <h6 className="text-[0.6rem]">{item.product_name}</h6>
                 <h6 className="text-[0.6rem] main_color flex items-center"><FaRupeeSign />{item.price*item.Qty}</h6>

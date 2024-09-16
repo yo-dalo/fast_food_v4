@@ -36,7 +36,7 @@ function Card(g) {
   
   const get_prodct =async(id)=>{
     try{
-    const res = await axios.get("http://localhost:3000/api/f/v1/Product/"+id)
+    const res = await axios.get("/api/f/v1/Product/"+id)
     setProduct(res.data);
     console.log(res.data)
     }catch(err){
@@ -54,7 +54,7 @@ function Card(g) {
     <div key={r} className={`${g.className}w-full relative h-full bg-amber-100 rounded-md px-4 py-2`} >
       <Link to={`/Detail/${i.product_id}`}>
         <div className="w-full h-[60%] ">
-          <img className="w-full h-full object-scale-down" src={`http://localhost:3000/uploads/${i.images}`} />
+          <img className="w-full h-full object-scale-down" src={`/uploads/${i.images}`} />
       </div>
       <div className="flex flex-col leading-none sm:leading-snug ">
         <h2 className="r3 text-sm">{i.product_name}</h2>

@@ -50,8 +50,8 @@ function Detal({iid}) {
   
   const get_prodct =async(id)=>{
     try{
-   //const res = await axios.get("http://localhost:3000/api/Product/"+id)
-    const res = await axios.get("http://localhost:3000/api/f/v1/Product/"+id)
+   //const res = await axios.get("/api/Product/"+id)
+    const res = await axios.get("/api/f/v1/Product/"+id)
     
     setProduct(res.data);
     console.log(res.data)
@@ -102,9 +102,9 @@ function Detal({iid}) {
         <div className="w-full  rounded-sm  bg-pink-50 h-[60vw] my-3 sm:my-6 ">
           <Swiper className="mySwiper w-full h-full">
           
-            <SwiperSlide><img className="w-full h-full object-contain" src={`http://localhost:3000/uploads/${i.images[0]}`} /></SwiperSlide>
-            <SwiperSlide><img className="w-full h-full object-contain" src={`http://localhost:3000/uploads/${i.images[1]}`} /></SwiperSlide>
-            <SwiperSlide><img className="w-full h-full object-contain" src={`http://localhost:3000/uploads/${i.images[2]}`} /></SwiperSlide>
+            <SwiperSlide><img className="w-full h-full object-contain" src={`/uploads/${i.images[0]}`} /></SwiperSlide>
+            <SwiperSlide><img className="w-full h-full object-contain" src={`/uploads/${i.images[1]}`} /></SwiperSlide>
+            <SwiperSlide><img className="w-full h-full object-contain" src={`/uploads/${i.images[2]}`} /></SwiperSlide>
           
       </Swiper>
 

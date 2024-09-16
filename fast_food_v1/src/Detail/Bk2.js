@@ -33,7 +33,7 @@ function Detal() {
 
   const get_prodct = async (id) => {
     try {
-      const res = await axios.get("http://localhost:3000/api/f/v1/Product/" + id);
+      const res = await axios.get("/api/f/v1/Product/" + id);
       setProduct(res.data);
       console.log(res.data);
     } catch (err) {
@@ -69,7 +69,7 @@ function Detal() {
               <Swiper className="mySwiper w-full h-full">
                 {i.images.map((iii, rrr) => (
                   <SwiperSlide key={rrr}>
-                    <img className="w-full h-full object-contain" src={`http://localhost:3000/uploads/${iii}`} alt={`Product image ${rrr}`} />
+                    <img className="w-full h-full object-contain" src={`/uploads/${iii}`} alt={`Product image ${rrr}`} />
                   </SwiperSlide>
                 ))}
               </Swiper>

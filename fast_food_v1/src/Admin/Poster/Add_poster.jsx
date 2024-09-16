@@ -34,7 +34,7 @@ function Add_poster() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/poster', formData, {
+      const response = await axios.post('/api/poster', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

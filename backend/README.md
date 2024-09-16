@@ -35,18 +35,18 @@ An easy way to get started with a Express server offering a REST API with Node.j
 #### CURL
 
 - Create a message with:
-  - `curl -X POST -H "Content-Type:application/json" http://localhost:3000/messages -d '{"text":"Hi again, World"}'`
+  - `curl -X POST -H "Content-Type:application/json" /messages -d '{"text":"Hi again, World"}'`
 - Delete a message with:
-  - `curl -X DELETE -H "Content-Type:application/json" http://localhost:3000/messages/1`
+  - `curl -X DELETE -H "Content-Type:application/json" /messages/1`
 
 #### Postman
 
 - Install [Postman](https://www.getpostman.com/apps) to interact with REST API
 - Create a message with:
-  - URL: http://localhost:3000/messages
+  - URL: /messages
   - Method: POST
   - Body: raw + JSON (application/json)
   - Body Content: `{ "text": "Hi again, World" }`
 - Delete a message with:
-  - URL: http://localhost:3000/messages/1
+  - URL: /messages/1
   - Method: DELETE

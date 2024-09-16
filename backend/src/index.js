@@ -11,7 +11,7 @@ app.use(cors({
   credentials: true
 }));
 */
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:7700'];
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:7700','http://localhost:3000','https://fast-food-v4.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {

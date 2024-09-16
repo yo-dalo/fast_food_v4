@@ -10,7 +10,7 @@ function Poster() {
 
 
 const fatch_user = ()=>{
-  axios.get('http://localhost:3000/api/poster')
+  axios.get('/api/poster')
       .then(response => {
         setData(response.data);
         setLoading(false);
@@ -25,7 +25,7 @@ const fatch_user = ()=>{
 
 const deleteCategory = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/poster/${id}`);
+      await axios.delete(`/api/poster/${id}`);
       fatch_user(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting category:', error);
@@ -34,7 +34,7 @@ const deleteCategory = async (id) => {
 
 const changeStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:3000/api/poster/${id}`, { status });
+      await axios.patch(`/api/poster/${id}`, { status });
       fatch_user(); // Refresh the list after status change
     } catch (error) {
       console.error('Error changing status:', error);
@@ -110,7 +110,7 @@ const changeStatus = async (id, status) => {
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.Name}</td>
                      <td type="button" className={`px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200 ${user.Status?"text-green-600": "text-red-600"} `} onClick={()=>changeStatus(user.Id,user.Status?0:1)}>{user.Status?"Active":"Inactive"}</td>
 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">
-                   <img className="sm:w-[5vw]" src={`http://localhost:3000/uploads/${user.Img}`}/>
+                   <img className="sm:w-[5vw]" src={`/uploads/${user.Img}`}/>
                  </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">{user.Date}</td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200">

@@ -17,7 +17,7 @@ function Edit_size() {
 
   const fetchUser = () => {
     setLoading(true);
-    axios.get('http://localhost:3000/api/Size/'+size_id)
+    axios.get('/api/Size/'+size_id)
       .then(response => {
         setData(response.data);
         setSize(response.data[0].Name)
@@ -43,7 +43,7 @@ function Edit_size() {
       
     } else{
     setLoading(true);
-    axios.put('http://localhost:3000/api/size/'+size_id, { name:size })
+    axios.put('/api/size/'+size_id, { name:size })
       .then(response => {
         setSuccess("Category added successfully");
         setError(null);

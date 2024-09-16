@@ -12,7 +12,7 @@ const Address = () => {
   const [addrass, setAddress] = useState("");
   const get_Address =async(id)=>{
     try{
-    const res = await axios.get("http://localhost:3000/api/user/addrass/"+id)
+    const res = await axios.get("/api/user/addrass/"+id)
     setAddress(res.data[0].Address);
     console.log(res.data)
     }catch(err){
@@ -23,7 +23,7 @@ const Address = () => {
   
   const update_Address =async(id,addrass)=>{
     try{
-    const res = await axios.patch("http://localhost:3000/api/user/",{user_id:id,address:addrass})
+    const res = await axios.patch("/api/user/",{user_id:id,address:addrass})
     get_Address(id)
     navigate('/Add_to_card')
     }catch(err){

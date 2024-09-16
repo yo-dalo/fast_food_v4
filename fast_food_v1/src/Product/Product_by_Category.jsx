@@ -15,7 +15,7 @@ function Product_by_Category() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/categories/pcard/'+id)
+    axios.get('/api/categories/pcard/'+id)
       .then(response => {
        setData(response.data);
        setName(response.data[0].Name)

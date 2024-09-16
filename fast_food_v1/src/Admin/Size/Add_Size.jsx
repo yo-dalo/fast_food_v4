@@ -14,7 +14,7 @@ const navigate = useNavigate();
 
   const fetchUser = () => {
     setLoading(true);
-    axios.get('http://localhost:3000/api/size')
+    axios.get('/api/size')
       .then(response => {
         setData(response.data);
         setLoading(false);
@@ -38,7 +38,7 @@ const navigate = useNavigate();
       
     } else{
     setLoading(true);
-    axios.post('http://localhost:3000/api/size', {name:size })
+    axios.post('/api/size', {name:size })
       .then(response => {
         setSuccess("Category added successfully");
         setError(null);

@@ -21,7 +21,7 @@ function Edit_user() {
 
   const fetchUser = () => {
     setLoading(true);
-    axios.get('http://localhost:3000/api/user/'+size_id)
+    axios.get('/api/user/'+size_id)
       .then(response => {
         setData(response.data);
         setSize(response.data[0].Name)
@@ -52,7 +52,7 @@ function Edit_user() {
       
     } else{
     setLoading(true);
-    axios.put('http://localhost:3000/api/user/'+size_id, { name:size ,phone:phone,email:email,username:username,address:address})
+    axios.put('/api/user/'+size_id, { name:size ,phone:phone,email:email,username:username,address:address})
       .then(response => {
         setSuccess("Category added successfully");
         setError(null);

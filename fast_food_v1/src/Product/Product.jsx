@@ -11,7 +11,7 @@ function Product() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/Product/')
+    axios.get('/api/Product/')
       .then(response => {
        setData(response.data);
        //console.log(data)

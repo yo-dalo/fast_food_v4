@@ -10,7 +10,7 @@ function User() {
 
 
 const fatch_user = ()=>{
-  axios.get('http://localhost:3000/api/user/')
+  axios.get('/api/user/')
       .then(response => {
         setData(response.data);
         setLoading(false);
@@ -25,7 +25,7 @@ const fatch_user = ()=>{
 
 const deleteCategory = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/user/${id}`);
+      await axios.delete(`/api/user/${id}`);
       fatch_user(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting category:', error);

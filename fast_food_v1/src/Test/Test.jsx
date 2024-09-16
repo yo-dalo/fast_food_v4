@@ -11,7 +11,7 @@ function Test() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.post('http://localhost:3000/add/',{id:3,name:"hello"})
+    axios.post('/add/',{id:3,name:"hello"})
       .then(response => {
         setData(response.data);
         setLoading(false);

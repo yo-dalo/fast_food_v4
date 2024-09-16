@@ -32,7 +32,7 @@ function Otp() {
     e.preventDefault();
     if (agree) {
       try {
-        const response = await axios.post(`http://localhost:3000/register`, {
+        const response = await axios.post(`/register`, {
           name,
           phone,
           email,

@@ -8,7 +8,7 @@ function Like({className,on,id}) {
         const [like, setLike] = useState(false);
         //const [data, setLike] = useState(false);
   const chack_fav = async(id)=>{
-    let res = await axios.get(`http://localhost:3000/api/favorites/${id}`)
+    let res = await axios.get(`/api/favorites/${id}`)
    if(res.data.msg===1){
      setLike(true)
      //console.log(res.data,id)
@@ -19,7 +19,7 @@ function Like({className,on,id}) {
   }
   const add_fav = async (prodct_id)=>{
      try{
-   const response=  await axios.post("http://localhost:3000/api/favorites/",{
+   const response=  await axios.post("/api/favorites/",{
       prodct_id,
       
      });
@@ -33,7 +33,7 @@ function Like({className,on,id}) {
    }
   const delete_fav = async (id)=>{
      try{
-   const response=  await axios.delete("http://localhost:3000/api/favorites/"+id);
+   const response=  await axios.delete("/api/favorites/"+id);
     response.data.msg===1?setLike(false):setLike(like);
      return response.data;
    

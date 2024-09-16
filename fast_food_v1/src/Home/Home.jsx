@@ -33,7 +33,7 @@ function Home() {
   const [poster_data ,setPoster_data] = useState([]);
   const fetchCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/categories/',{withCredentials: true});
+      const response = await axios.get('/api/categories/',{withCredentials: true});
       setCategories_data(response.data);
       console.log(response.data)
       
@@ -43,7 +43,7 @@ function Home() {
   };
   const fetchPoster = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/Get/All/V1/F/poster',{withCredentials: true,});
+      const response = await axios.get('/Get/All/V1/F/poster',{withCredentials: true,});
       setPoster_data(response.data);
       console.log(response.data)
       
@@ -53,7 +53,7 @@ function Home() {
   };
   const fetchProduct = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/Product/getId');
+      const response = await axios.get('/api/Product/getId');
       setProduct_data(response.data);
       console.log(response.data)
       
@@ -122,7 +122,7 @@ return (
 
           <div className="w-full flex flex-col justify-center items-center h-[10vw]">
 
-            <img src={`http://localhost:3000/uploads/${i.Img}`} className="w-full h-full object-contain"/>
+            <img src={`/uploads/${i.Img}`} className="w-full h-full object-contain"/>
           </div>
           <h6 className="r3 text-sm text-center">{i.Name}</h6>
           </Link>
@@ -137,7 +137,7 @@ return (
 <div className="w-full rounded-md  h-[35vw] ">
   <Swiper className="mySwiper w-full h-full">
   {poster_data.map((p,i)=> (
-        <SwiperSlide key={i}><Link to={p.Url}><img className="w-full h-full object-contain" src={`http://localhost:3000/uploads/${p.Img}`} /></Link></SwiperSlide>
+        <SwiperSlide key={i}><Link to={p.Url}><img className="w-full h-full object-contain" src={`/uploads/${p.Img}`} /></Link></SwiperSlide>
   ))}
 
       </Swiper>

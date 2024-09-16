@@ -30,7 +30,7 @@ const handle_add_to_card = async (i) => {
   };
 
   try {
-    const res = await axios.post("http://localhost:3000/api/card/", newCard);
+    const res = await axios.post("/api/card/", newCard);
     //setProduct(res.data);
     console.log(res.data);
     alert(res.data.msg)
@@ -43,7 +43,7 @@ const handle_add_to_card = async (i) => {
 
   const get_product = async (id) => {
     try {
-      const res = await axios.get("http://localhost:3000/api/f/v2/Product/" + id);
+      const res = await axios.get("/api/f/v2/Product/" + id);
       setProduct(res.data);
       console.log(res.data);
     } catch (err) {
@@ -82,7 +82,7 @@ const handle_add_to_card = async (i) => {
               <Swiper className="mySwiper w-full h-full">
                 {i.Img.map((iii, rrr) => (
                   <SwiperSlide key={rrr}>
-                    <img className="w-full h-full object-contain" src={`http://localhost:3000/uploads/${iii}`} alt={`Product image ${rrr}`} />
+                    <img className="w-full h-full object-contain" src={`/uploads/${iii}`} alt={`Product image ${rrr}`} />
                   </SwiperSlide>
                 ))}
               </Swiper>

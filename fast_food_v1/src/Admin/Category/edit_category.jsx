@@ -44,7 +44,7 @@ function EditCategory() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v2/categories/'+id_, formData, {
+      const response = await axios.post('/api/v2/categories/'+id_, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -71,7 +71,7 @@ function EditCategory() {
 
 const fetchCategories = async (id) => {
     try {
-      const response = await axios.get('http://localhost:3000/api/categories/'+id);
+      const response = await axios.get('/api/categories/'+id);
       setCategories(response.data);
       console.log(response.data)
      setCategoryName(response.data[0].Name);
@@ -138,7 +138,7 @@ const fetchCategories = async (id) => {
                     img
                   </label>
                   <img
-                    src={`http://localhost:3000/uploads/${categoryImg}`}
+                    src={`/uploads/${categoryImg}`}
                     alt={categoryImg}
                     
                     

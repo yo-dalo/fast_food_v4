@@ -117,7 +117,7 @@ router.get("/api/order/:id",(req,res)=>{
 
         
         try {
-        await  fetch('http://localhost:3000/api/send-email/', {
+        await  fetch('/api/send-email/', {
   Method: 'POST',
   Headers: {
     Accept: 'application.json',
