@@ -1,0 +1,55 @@
+    @font-face {
+    font-family: 'Inter';
+    src:   url('./Font/Inter-Black.ttf');
+
+}
+
+    @font-face {
+    font-family: 'Inter_3';
+    src:   url('./Font/Inter-Bold.ttf');
+
+}
+
+
+@font-face {
+    font-family: 'Inter_1';
+    src: url('./Font/Inter-Regular.ttf-Regular.ttf') ;
+}
+@font-face {
+    font-family: 'Inter_4';
+    src: url('./Font/Inter-ExtraBold.ttf') ;
+}
+
+.r{
+    font-family: Inter;
+  }
+  
+  .r2{
+        font-family: 'Inter_1';
+
+  }
+  .r3{
+        font-family: 'Inter_3';
+
+  }
+    .r4{
+        font-family: 'Inter_4';
+
+  }
+
+.main_bg{
+  background: #32B68F;
+  
+}
+.main_color{
+color: #32B68F;
+}
+.bg_2{
+  background-color: #D9D9D9;
+}
+.color_2{
+  color: #D9D9D9;
+}
+.text-1{
+  font-size: 0.8em;
+}

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/*
+    @font-face {
+    font-family: 'poppins';
+    src: url('./Font/Poppins-Black.ttf') format('truetype'),
+         url('./Font/Poppins-Bold.ttf') format('truetype'),
+         url('./Font/Poppins-ExtraBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+*/
+.r{
+  font-family: poppins;
+}
+
+
+
+.an{
+  animation-name: identifier;
+  animation-duration: 0.5s;
+}
+@keyframes identifier {
+  from {  opacity: 0;
+  
+  }
+  to {  opacity: 1;
+        
+
+
+  }
+}
+
+/* Add this to your CSS file */
+.ckeditor-container .ck-editor__editable_inline {
+    min-height: 300px;  /* Set height */
+    max-height: 500px;
+    width: 100vw;       /* Set width */
+}
