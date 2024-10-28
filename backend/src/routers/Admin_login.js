@@ -1,13 +1,14 @@
 const express = require("express");
 const db = require("../db/conn")
 const bcrypt = require('bcryptjs');
-const checkCookieAuth = require("../Utility/Auth_midd")
+const jwt = require('jsonwebtoken');
+const {checkCookieAuth_Admin} = require("../Utility/Auth_midd")
 
  
  const router = express.Router();
  
 
-router.post("/api/v1/registration/", async (req, res) => {
+router.post("/api/v1/admin/registration/", async (req, res) => {
   const { name, password, email } = req.body;
 
   // Validate email presence
@@ -36,13 +37,27 @@ router.post("/api/v1/registration/", async (req, res) => {
     const sql = "INSERT INTO `Admin` (`Name`, `Date`, `Email`, `Password`, `Token`) VALUES (?, current_timestamp(), ?, ?, ?);";
     db.query(sql, [name, email, hash_password, "tokan"], (err, result) => {
       if (err) throw err;
-      res.send({ msg: 1 });
+     // res.send({ msg: 1 });
+      
+ const token = jwt.sign({ id: "user.id" }, process.env.JWT_SECRET_KEY, { expiresIn: 20000*10000*30 }); // Use a secure key in production
+    res.cookie('authToken', token, {
+    path: '/',
+    httpOnly: false, // Keep it secure from JavaScript
+    secure: false, // Only enable secure in production
+    sameSite: 'Lax', // SameSite None for production, Lax for development
+  }).send({msg:"registration successful"});
+      
+      
+      
+      
+      
+      
     });
   });
 });
 
 
-router.post("/api/v1/login/", async (req, res) => {
+router.post("/api/v1/admin/login/", async (req, res) => {
   const { password, email } = req.body;
 
   const sql = "SELECT * FROM Admin WHERE Email=?";
@@ -56,7 +71,18 @@ router.post("/api/v1/login/", async (req, res) => {
       const isMatch = await bcrypt.compare(password, user.Password);
       
       if (isMatch) {
-        res.send({ msg: 1 }); // Passwords match, login successful
+      //  res.send({ msg: 1 }); // Passwords match, login successful
+        
+    const token = jwt.sign({ id: user.Id }, process.env.JWT_SECRET_KEY, { expiresIn: 86400*2 }); // Use a secure key in production
+    res.cookie('authToken_admin', token, {
+    path: '/',
+    httpOnly: false, // Keep it secure from JavaScript
+    secure: false, // Only enable secure in production
+    sameSite: 'Lax', // SameSite None for production, Lax for development
+  }).send({msg:"Login successful"});
+   // console.log("Login successful");
+  
+        
       } else {
         res.send({ msg: 0 }); // Passwords do not match
       }
@@ -89,6 +115,23 @@ db.query(sql,[id],(err,result)=>{
   res.send(result)
 })
 }) 
+ 
+ 
+ 
+ router.get("/api/f/chack_admin_login/",checkCookieAuth_Admin,(req,res)=>{
+  const sql="SELECT Id FROM Admin WHERE Id = ?"
+  db.query(sql,[138],(err,result)=>{
+    if(err) throw err;
+    res.send({...result[0],login:true})
+  })
+  
+  
+})
+
+
+ 
+ 
+ 
  
  
  

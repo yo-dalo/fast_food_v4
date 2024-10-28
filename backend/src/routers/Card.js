@@ -1,7 +1,7 @@
 ///Id	Product_id	User_id	Size_id	Time
 const express = require("express");
 const db = require("../db/conn");
-const checkCookieAuth = require("../Utility/Auth_midd")
+const {checkCookieAuth} = require("../Utility/Auth_midd")
 
  const router = express.Router();
  
@@ -68,8 +68,8 @@ router.get("/api/f/v2/card/",(req,res)=>{
 
 
 })
-router.get("/api/f/v3/card/",(req,res)=>{
-
+router.get("/api/f/v3/card/",checkCookieAuth,(req,res)=>{
+const {id} = req.user;
 var sql =`SELECT
     c.Id AS Card_id,
     c.Product_id,
@@ -93,10 +93,10 @@ LEFT JOIN Size_ sz ON
 LEFT JOIN Product_img pi ON
     c.Product_id = pi.Product_id
 LEFT JOIN Size s ON
-    sz.Size_id = s.Id WHERE c.User_id = ?`
+    sz.Size_id = s.Id WHERE c.User_id = ? and p.Status=1 and c.Status=0`
 
 
-  db.query(sql,[1],(err,result)=>{
+  db.query(sql,[id],(err,result)=>{
      function getcard(c) {
   // Tab to edit
 
@@ -272,12 +272,22 @@ db.query(sql, (err,result)=>{
 
 
 });
-router.post("/api/f/v6/card/", (req, res) => {
+router.post("/api/f/v6/card/",checkCookieAuth, (req, res) => {
+  const user_id = req.user.id;
+  
   const { my_card_arr } = req.body;
+  
+  
+  
 var pl=my_card_arr.map((i,r)=>{
   var str= `? ,`
   return i;
 }).join(",")
+
+if(pl==""){
+  return res.status(200).json([]);
+}
+
 
 const sql = `SELECT
     c.Id As card_id ,
@@ -304,14 +314,15 @@ LEFT JOIN Product p ON
     Left join Product_img pi  On  p.Id = pi.Product_id
     Left join User u On c.User_id = u.Id
 WHERE
-c.User_id= 1 AND
+c.User_id= ${user_id} AND
 p.Status = 1 AND 
     c.Id IN (${pl})`;
 
 db.query(sql, (err,result)=>{
   
+  if (err) throw err
   var data ={}
-  result.forEach((i,r)=>{
+  result?.forEach((i,r)=>{
     let key = `${i.card_id} `;
     if(!data[key]){
       data[key]={
@@ -373,13 +384,13 @@ router.get("/api/card/:id",(req,res)=>{
   })
   
 })
-router.post("/api/card/",(req,res)=>{
+router.post("/api/card/",checkCookieAuth,(req,res)=>{
    const {product_id,size_id,prodct_qty} = req.body
-   
+   const {id} = req.user;
 //const sql = "INSERT INTO `Card` ( `Product_id`, `User_id`, `Size_id`, `Time`) VALUES (?, ?, ?, current_timestamp());"
-const sql = "INSERT INTO `Card` (`Id`, `Product_id`, `User_id`, `Size_id`, `Time`, `Qty`) VALUES (NULL, '?', '?', '?', current_timestamp(), '?')";
+const sql = "INSERT INTO `Card` (`Id`, `Product_id`, `User_id`, `Size_id`, `Time`, `Qty`,Status) VALUES (NULL, '?', '?', '?', current_timestamp(), '?',0)";
    
-  db.query(sql,[product_id,1,size_id,prodct_qty],(err,result)=>{
+  db.query(sql,[product_id,id,size_id,prodct_qty],(err,result)=>{
     if(err) {
       console.log("sqli err is ",err)
       res.send({msg:0})
@@ -391,22 +402,23 @@ const sql = "INSERT INTO `Card` (`Id`, `Product_id`, `User_id`, `Size_id`, `Time
   })
   
 })
-router.delete("/api/card/:id",(req,res)=>{
+router.delete("/api/card/:id",checkCookieAuth,(req,res)=>{
    const {id} = req.params;
+   const user_id = req.user.id;
    //const sql ="DELETE FROM Favorites WHERE User_id = ? and Product_id =?";
   // const sql = "DELETE FROM `Favorites` WHERE `Favorites`.`User_id` = ?  AND Product_id= ?";
   const sql = "DELETE FROM `Card` WHERE Id  = ? and User_id = ?";
-   db.query(sql,[id,1],(err,result)=>{
+   db.query(sql,[id,user_id],(err,result)=>{
      if(err) throw err
      res.send({msg:1})
-     console.log(id)
+     
    })
    
    
  })
  
  ///update qty
-router.patch("/api/card/update/qty/",(req,res)=>{
+router.patch("/api/card/update/qty/",checkCookieAuth,(req,res)=>{
    const {id,qty} = req.body;
    //const sql ="DELETE FROM Favorites WHERE User_id = ? and Product_id =?";
   // const sql = "DELETE FROM `Favorites` WHERE `Favorites`.`User_id` = ?  AND Product_id= ?";
@@ -414,7 +426,7 @@ router.patch("/api/card/update/qty/",(req,res)=>{
    db.query(sql,[qty,id],(err,result)=>{
      if(err) throw err
      res.send({msg:1})
-     console.log(id)
+     
    })
    
    

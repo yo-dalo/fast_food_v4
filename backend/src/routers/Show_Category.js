@@ -2,17 +2,27 @@
 const express = require('express');
 const db = require('../db/conn'); // Adjust the path to your db connection module
 const router = express.Router();
-const checkCookieAuth = require("../Utility/Auth_midd")
+const {checkCookieAuth,checkCookieAuth_Admin} = require("../Utility/Auth_midd")
 
 
-router.get('/api/categories',checkCookieAuth,(req, res) => {
-  const sql = 'SELECT * FROM Category';
+router.get('/api/ad/categories',checkCookieAuth_Admin,(req, res) => {
+  const sql = 'SELECT * FROM Category ORDER BY Category.Id DESC';
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);
     
   });
 });
+router.get('/api/categories',(req, res) => {
+  const sql = 'SELECT * FROM Category WHERE Status = ? ORDER BY Category.Id DESC';
+  db.query(sql,[1],(err, result) => {
+    if (err) throw err;
+    res.send(result);
+    
+  });
+});
+
+
 router.get('/api/categories/:id', (req, res) => {
   const { id } = req.params;
   const sql = 'SELECT * FROM Category WHERE id = ?';

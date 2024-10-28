@@ -1,10 +1,21 @@
 const express = require("express");
 const  db = require("../db/conn")
 
+const {checkCookieAuth,checkCookieAuth_Admin} = require("../Utility/Auth_midd")
 
 const router = express.Router()
 
 router.get("/api/user/",(req,res)=>{
+  db.query("SELECT * FROM User",(err,result)=>{
+    if(err){
+      console.log(err)
+    }else{
+      res.send(result)
+    }
+  })
+  
+})
+router.get("/api/v1/admin/user/",checkCookieAuth_Admin,(req,res)=>{
   db.query("SELECT * FROM User",(err,result)=>{
     if(err){
       console.log(err)
@@ -25,8 +36,29 @@ router.get("/api/user/:id",(req,res)=>{
   })
   
 })
+router.get("/api/v1/f/user/",checkCookieAuth,(req,res)=>{
+  const {id}= req.user;
+  db.query("SELECT * FROM User WHERE Id = ?",[id],(err,result)=>{
+    if(err){
+      console.log(err)
+    }else{
+      res.send(result)
+    }
+  })
+  
+})
 
 router.delete('/api/user/:id', (req, res) => {
+  const { id } = req.params;
+  console.log(id)
+  const sql = 'DELETE FROM User WHERE Id = ?';
+ // DELETE FROM `User` WHERE Id = 85
+  db.query(sql, [id], (err, result) => {
+    if (err) throw err;
+    res.send({ message: 'Category deleted', id });
+  });
+});
+router.delete('/api/v1/admin/user/:id',checkCookieAuth_Admin, (req, res) => {
   const { id } = req.params;
   console.log(id)
   const sql = 'DELETE FROM User WHERE Id = ?';
@@ -63,19 +95,50 @@ const sql = "UPDATE `User` SET `Address` = ? WHERE `User`.`Id` = ?;"
       
       
 });
+router.patch('/api/update_Address/user/', checkCookieAuth,(req, res) => {
+      const {address} = req.body;
+      const {id} = req.user;
+      
+      
+const sql = "UPDATE `User` SET `Address` = ? WHERE `User`.`Id` = ?;"
+    db.query(sql,[address,id],(err,result)=>{
+      if (err) throw err
+      res.send({msg:1})
+      
+    })  
+      
+      
+      
+});
 ///get addrass
-router.get("/api/user/addrass/:id",(req,res)=>{
-  const {id}= req.params;
-  db.query("SELECT Address FROM User WHERE Id = ?",[id],(err,result)=>{
+router.get("/api/user/addrass/",(req,res)=>{
+  const {id}= req.user;
+  console.log(id);
+  const sql = "SELECT `Address` FROM `User` Where Id = ?;"
+  db.query(sql,[1],(err,result)=>{
     if(err){
       console.log(err)
     }else{
       res.send(result)
+      console.log(result)
     }
   })
   
 })
 
+router.get("/api/user/v1/addrass/",checkCookieAuth,(req,res)=>{
+  const {id} = req.user;
+  const sql = "SELECT `Address` FROM `User` Where Id = ?;"
+  db.query(sql,[id],(err,result)=>{
+    if(err){
+      console.log(err)
+    }else{
+      res.send(result)
+      
+    }
+  })
+  
+})
 
 
 

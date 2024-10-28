@@ -4,6 +4,7 @@ const db = require('../db/conn'); // Adjust the path to your db connection modul
 const multer = require('multer');
 const path = require('path');
 const pool = require('../db/pool'); // Adjust the path to your db connection module
+const {checkCookieAuth,checkCookieAuth_Admin} = require("../Utility/Auth_midd")
 
 
 const router = express.Router();
@@ -16,7 +17,34 @@ router.get('/api/Product/', (req, res) => {
     
   });
 });
+router.get('/api/v1/admin/Product/', checkCookieAuth_Admin,(req, res) => {
+  const sql = 'SELECT * FROM Product';
+  db.query(sql, (err, result) => {
+    if (err) throw err;
+    res.send(result);
+    
+  });
+});
+
+
+
+router.get('/api/v1/main/f/Product/', (req, res) => {
+  const sql = 'SELECT * FROM `Product` Where Status = ?';
+  db.query(sql,[1], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+    
+  });
+});
 //get only id
+router.get('/api/v1/main/f/Product/getId/', (req, res) => {
+  const sql = 'SELECT Id FROM Product Where Status = ?';
+  db.query(sql,[1], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+    
+  });
+});
 router.get('/api/Product/getId', (req, res) => {
   const sql = 'SELECT Id FROM Product';
   db.query(sql, (err, result) => {
@@ -26,7 +54,7 @@ router.get('/api/Product/getId', (req, res) => {
   });
 });
 //get singel product
-router.get('/api/Product/:id', (req, res) => {
+router.get('/api/Product/by_id/:id', (req, res) => {
   const {id} = req.params;
   const sql = 'SELECT * FROM Product WHERE Id = ?';
   db.query(sql,[id], (err, result) => {
@@ -374,8 +402,25 @@ router.patch('/api/Product/:id', (req, res) => {
     res.send({ message: 'Category status updated', id, status });
   });
 });
+router.patch('/api/v1/admin/Product/:id', checkCookieAuth_Admin,(req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  const sql = 'UPDATE Product SET status = ? WHERE id = ?';
+  db.query(sql, [status, id], (err, result) => {
+    if (err) throw err;
+    res.send({ message: 'Category status updated', id, status });
+  });
+});
 //delete
 router.delete('/api/Product/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = 'DELETE FROM Product WHERE id = ?';
+  db.query(sql, [id], (err, result) => {
+    if (err) throw err;
+    res.send({ message: 'Category deleted', id });
+  });
+});
+router.delete('/api/v1/admin/Product/:id',checkCookieAuth_Admin, (req, res) => {
   const { id } = req.params;
   const sql = 'DELETE FROM Product WHERE id = ?';
   db.query(sql, [id], (err, result) => {

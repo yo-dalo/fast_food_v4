@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 //const {checkCookieAuth} = require('../Utility/Auth_midd');
-const checkCookieAuth = require("../Utility/Auth_midd")
+const {checkCookieAuth} = require("../Utility/Auth_midd")
 
 const router = express.Router();
 const db = require('../db/conn');
@@ -43,6 +43,53 @@ router.post('/register', (req, res) => {
    // res.status(200).send({ auth: true, token });
   });
 });
+router.post('/api/v1/register',  async (req, res) => {
+  const { name, password ,phone,email} = req.body;
+     
+     const sql_find_user= "Select Email From User WHERE Email = ? ";
+    db.query(sql_find_user,[email],(err,result)=>{
+          if (err) throw err;
+          if(result.length > 0){
+              res.status(500).send("email allready exist");
+          }else{
+            const hashedPassword = bcrypt.hashSync(password, 8);
+            
+            
+            
+            
+            
+ const sql = 'INSERT INTO `User` (`Name`,`Email`, `Password`, `Username`, `Phone` ,`Address`) VALUES (?, ?, ?, ?, ?,"");';
+  db.query(sql,[name,email, hashedPassword,name,phone], (err, result) => {
+    if (err) {
+      
+      return res.status(500).send('Server error');
+    }
+  
+  
+  
+   const token = jwt.sign({ id: "user.id"||66 }, process.env.JWT_SECRET_KEY, { expiresIn: 86400 }); // Use a secure key in production
+   
+     res.cookie('authToken', token, {
+    path: '/',
+    httpOnly: false, // Keep it secure from JavaScript
+    secure: false, // Only enable secure in production
+    sameSite: 'Lax', // SameSite None for production, Lax for development
+  }).send("registered  successful");
+    
+    
+  });
+            
+            
+          }
+          
+      })
+  
+  
+  
+  
+  
+  
+});
 
 
 
@@ -76,10 +123,10 @@ router.post('/login_0', (req, res) => {
   
 
 
-    console.log("Login successful");
+    
   });
 });
-router.post('/login', (req, res) => {
+router.post('/api/v1/login', (req, res) => {
   const { email, password } = req.body;
  /// console.log(req.body);
 
@@ -99,7 +146,7 @@ router.post('/login', (req, res) => {
       return res.status(401).send('Invalid password');
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, { expiresIn: 86400 }); // Use a secure key in production
+    const token = jwt.sign({ id: user.Id }, process.env.JWT_SECRET_KEY, { expiresIn: 86400*2 }); // Use a secure key in production
 
     //res.cookie('authToken', token, { httpOnly: true, secure: true })
     /*
@@ -117,8 +164,30 @@ router.post('/login', (req, res) => {
   });
 });
 
-router.get("/vv1",checkCookieAuth,(req,res)=>{
-  res.send("ok");
+router.get("/api/f/chack_login/",checkCookieAuth,(req,res)=>{
+  const user_id = req.user.id;
+  const sql="SELECT Id FROM User WHERE Id  = ?"
+  db.query(sql,[user_id],(err,result)=>{
+    if(err) throw err;
+    res.send({...result[0],login:result[0]?.Id?true:false})
+   // console.log(result[0]?.Id?true:false);
+  })
+  
+  
+})
+
+router.get("/api/f/logout/",checkCookieAuth,(req,res)=>{
+  try{
+    
+     res.clearCookie('authToken', { path: '/' });
+     
+    console.log(6);
+    res.status(200).send({msg:1})
+  }catch{
+  //  console.log(req.cookies.c);
+    res.status(400).send({msg:0})
+  }
+  
 })
 
 

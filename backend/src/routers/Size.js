@@ -4,7 +4,7 @@ const db = require('../db/conn'); // Adjust the path to your db connection modul
 const router = express.Router();
 
 router.get('/api/Size/', (req, res) => {
-  const sql = 'SELECT * FROM Size';
+  const sql = 'SELECT * FROM Size ORDER BY `Size`.Id DESC';
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);

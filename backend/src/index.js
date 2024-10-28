@@ -11,7 +11,7 @@ app.use(cors({
   credentials: true
 }));
 */
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:7700','http://localhost:3000','https://fast-food-v4.onrender.com'];
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:7700','http://localhost:3000/'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -50,6 +50,7 @@ const favorites_Routers = require('./routers/Favorites');
 const card_Routers = require('./routers/Card');
 const mailRoutes = require('./routers/mailRoutes');
 const poster_Routers = require('./routers/Poster');
+const Admin_Routers = require('./routers/Admin');
 
 dotenv.config({path:"./src/.env"});
 
@@ -77,13 +78,6 @@ app.get("/v2", (req, res) => {
 */
 
 
-app.get("/",(req,res)=>{
-  res.send("ok")
-})
-
-
-
-
 
 app.use(userRoutes);
 app.use(category_Routes);
@@ -97,6 +91,7 @@ app.use(card_Routers);
 app.use(admin_login_Routers);
 app.use(order_Routers);
 app.use(poster_Routers);
+app.use(Admin_Routers);
 
 
 app.use('/api', mailRoutes);
